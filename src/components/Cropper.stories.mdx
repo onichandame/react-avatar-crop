@@ -1,0 +1,19 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+
+import Subject from "./Cropper";
+import example from './static/example.jpg'
+
+
+<Meta title="Cropper" component={Subject}/>
+
+The world's most boring button!
+
+# Preview
+
+<Preview>
+  <Story name="cropper displayed">
+    <Subject image={example}/>
+  </Story>
+</Preview>
+
+<Props of={Subject} />

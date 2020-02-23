@@ -1,2 +1,2 @@
-export { Button } from './components/Button';
-export { useCounter } from './hooks/useCounter';
+import Cropper from './components/Cropper';
+export default Cropper
