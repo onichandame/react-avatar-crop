@@ -1,4 +1,6 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { FC, useState } from 'react'
+import styled from 'styled-components'
 
 import Subject from "./Cropper";
 import Example from "./Example";
@@ -21,8 +23,27 @@ import example from './static/example.jpg'
 ## Cropped image
 
 <Preview>
-  <Story name="obtaned cropped image">
-    <Example image={example}/>
+  <Story name="obtain cropped image">
+    {
+      () => {
+        const HBox = styled.div`
+          display: flex;
+        `
+        const Img = styled.img`
+          margin-left: 2rem;
+          width: auto;
+          height: 267px;
+          border-radius: 50%;
+        `
+        let [croppedImage, setCroppedImage] = useState()
+        return (
+          <HBox>
+            <Subject image={example} onChange={setCroppedImage}/>
+            <Img src={croppedImage}/>
+          </HBox>
+        )
+      }
+    }
   </Story>
 </Preview>
 
