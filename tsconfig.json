@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "plugins": [
+      {
+        "name": "typescript-styled-plugin",
+        "tags": [
+          "styled"
+        ]
+      }
+    ],
     "outDir": "build",
     "declaration": true,
     "target": "es5",

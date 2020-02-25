@@ -18,17 +18,23 @@ const StyledSlider = styled.div`
   z-index: 1000;
 `
 
+const StyledBox = styled.div`
+  position: relative;
+  width: 400px;
+  height: 267px;
+`
+
 const Cropper: FC<Props> = ({ image, aspect = 1, onChange }) => {
   const [crop, setCrop] = useState<EasyCrop['props']['crop']>({x:0, y:0})
   const [zoom, setZoom] = useState<EasyCrop['props']['zoom']>(1)
   const [rotation, setRotation] = useState<EasyCrop['props']['rotation']>(0)
 
   const handleCrop = useCallback(async ({} = {}, croppedAreaPixels: Area) => {
-    onChange(await getCroppedImage(image, croppedAreaPixels, rotation))
+    onChange(await getCroppedImage(croppedAreaPixels))
   }, [image, rotation, crop, zoom])
 
-  const getCroppedImage = async (src: string, area: Area, rot: typeof rotation) => {
-    let img = await createImage(src)
+  const getCroppedImage = async (area: Area): Promise<string> => {
+    let img = await createImage(image)
 
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')
@@ -36,8 +42,19 @@ const Cropper: FC<Props> = ({ image, aspect = 1, onChange }) => {
     canvas.width = canvasSide
     canvas.height = canvasSide
 
-    let result = ''
-    return result
+    ctx!.translate(canvasSide/2, canvasSide/2)
+    ctx!.rotate(degToRad(rotation))
+    ctx!.translate(-canvasSide/2, -canvasSide/2)
+
+    ctx!.drawImage(img, canvasSide/2 - img.width/2, canvasSide/2 - img.height/2)
+    const data = ctx!.getImageData(0, 0, canvasSide, canvasSide)
+    canvas.width = area.width
+    canvas.height = area.height
+    ctx!.putImageData(data,
+                      0 - canvasSide/2 + img.width/2 - area.x,
+                      0 - canvasSide/2 + img.height/2 - area.y
+                     )
+  return new Promise(r => canvas.toBlob(f => r(URL.createObjectURL(f)), 'image/jpeg'))
   }
 
   const createImage = (url: string): Promise<HTMLImageElement> => new Promise((r, j) => {
@@ -48,8 +65,10 @@ const Cropper: FC<Props> = ({ image, aspect = 1, onChange }) => {
     img.src = url
   })
 
+  const degToRad = (deg: number): number => deg / 180 * Math.PI
+
   return (
-    <div style={{position: 'relative', width: '400px', height: '267px'}}>
+    <StyledBox>
       <EasyCrop
         image={image}
         crop={crop}
@@ -62,11 +81,12 @@ const Cropper: FC<Props> = ({ image, aspect = 1, onChange }) => {
         aspect={aspect}
         showGrid={true}
         cropShape={'round'}
+        restrictPosition={true}
       />
       <StyledSlider>
         <Slider  min={0} max={360} value={rotation} onChange={e => setRotation(parseInt(e.currentTarget.value))}/>
       </StyledSlider>
-    </div>
+    </StyledBox>
   );
 }
 export default Cropper

@@ -1,7 +1,12 @@
 import React, { FC, ComponentProps, useRef, useEffect } from "react";
 import styled from 'styled-components'
 
-type Props = ComponentProps<'input'>
+type Props = {
+  min: ComponentProps<'input'>['min'];
+  max: ComponentProps<'input'>['max'];
+  value: ComponentProps<'input'>['value'];
+  onChange: ComponentProps<'input'>['onChange'];
+}
 
 type RangedInput = {
   orient: 'vertical' | 'horizontal'
@@ -33,7 +38,7 @@ const StyledSlider = styled.input`
   }
 `
 
-const Slider: FC<Props> = ({style, min, max, value, onChange}) => {
+const Slider: FC<Props> = ({min, max, value, onChange}) => {
   const slider = useRef<RangedInput>(null)
   useEffect(() => {
     slider.current!.orient= 'vertical'
@@ -43,7 +48,7 @@ const Slider: FC<Props> = ({style, min, max, value, onChange}) => {
     <StyledSlider
       ref={slider}
       type="range"
-      {...{min, max, value, onChange, style}}
+      {...{min, max, value, onChange}}
     />
   )
 }

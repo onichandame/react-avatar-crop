@@ -1,14 +1,16 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 
 import Subject from "./Cropper";
+import Example from "./Example";
+
 import example from './static/example.jpg'
 
 
 <Meta title="Cropper" component={Subject}/>
 
-The world's most boring button!
+# Cropper
 
-# Preview
+## Basic
 
 <Preview>
   <Story name="cropper displayed">
@@ -16,4 +18,21 @@ The world's most boring button!
   </Story>
 </Preview>
 
+## Cropped image
+
+<Preview>
+  <Story name="obtaned cropped image">
+    <Example image={example}/>
+  </Story>
+</Preview>
+
+## API
+
 <Props of={Subject} />
+
+## Note
+
+1. The cropper uses [react-easy-crop] under the hood. For fully flexible cropper, see [react-easy-crop]. But you will need to implement the cropped image getter algorithm yourself.
+2. As [react-easy-crop] uses `position: relative;` and `position: absolute;` to locate its components, the outer div of the cropper is recommended to be fixed-size. Otherwise some initial render problems may occur.
+
+[react-easy-crop]: https://www.npmjs.com/package/react-easy-crop
