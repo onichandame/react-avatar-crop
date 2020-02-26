@@ -9,7 +9,7 @@ type Props = {
 }
 
 type RangedInput = {
-  orient: 'vertical' | 'horizontal'
+  orient: 'vertical' | 'horizontal';
 } & HTMLInputElement
 
 const StyledSlider = styled.input`
@@ -41,7 +41,7 @@ const StyledSlider = styled.input`
 const Slider: FC<Props> = ({min, max, value, onChange}) => {
   const slider = useRef<RangedInput>(null)
   useEffect(() => {
-    slider.current!.orient= 'vertical'
+    slider.current && (slider.current.orient = 'vertical')
   })
 
   return (

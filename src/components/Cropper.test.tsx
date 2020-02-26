@@ -1,8 +1,8 @@
-import React from 'react'
+//import React from 'react'
 //import '@testing-library/jest-dom/extend-expect';
 import '@testing-library/jest-dom';
-import {render, screen} from '@testing-library/react'
-import Subject from './Cropper' 
+//import {render, screen} from '@testing-library/react'
+//import Subject from './Cropper' 
 
 describe('cropper', () => {
   test('dummy test', () => {
