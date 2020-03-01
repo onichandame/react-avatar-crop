@@ -23,7 +23,7 @@ The cropper works best in a fixed-size container.
 
 # Note
 
-This component is purely created for my own convenience. As all the existing avatar croppers do not offer all of the following functions:
+This component is purely created for my own convenience, as none of the existing avatar croppers offers all of the following functions:
 
 1. move on drag
 2. zoom by touch and wheel
@@ -31,6 +31,10 @@ This component is purely created for my own convenience. As all the existing ava
 4. rounded preview
 5. easy method to retrieve the final image in the Base64 format
 
-I made the component based on my current requirements. There may be breaking changes in the future as my requirements change. Any suggestion or PR is welcome.
+I made the component based on my current requirements. There may be breaking changes in the future as my requirements change. Any suggestion that helps formalizing this component is welcome.
 
 The versioning will fowllow semver 2.0.
+
+# License
+
+MIT
