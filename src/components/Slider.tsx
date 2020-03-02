@@ -2,9 +2,9 @@ import React, { FC, ComponentProps, useRef, useEffect } from "react";
 import styled from 'styled-components'
 
 type Props = {
-  min: ComponentProps<'input'>['min'];
-  max: ComponentProps<'input'>['max'];
-  value: ComponentProps<'input'>['value'];
+  min: number;
+  max: number;
+  value: number;
   onChange: ComponentProps<'input'>['onChange'];
 }
 

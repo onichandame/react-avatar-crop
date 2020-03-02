@@ -1,16 +1,23 @@
-//import React from 'react'
-//import '@testing-library/jest-dom/extend-expect';
-import '@testing-library/jest-dom';
-//import {render, screen} from '@testing-library/react'
-//import Subject from './Cropper' 
+import React, { isValidElement } from 'react'
+import { mount, shallow } from 'enzyme'
+
+import Subject from './Cropper'
+import Slider from './Slider'
+
+const pixelImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg=='
 
 describe('cropper', () => {
-  test('dummy test', () => {
-    expect(true).toBeTruthy()
+  test('can be imported', () => {
+    expect(isValidElement(<Subject image={''} onChange={() => {}}/>)).toBeTruthy()
   })
-  //test('shows the children of the button', () => {
-  //  const testMessage = 'Test Message'
-  //  render(<Subject image={''}/>)
-  //  expect(screen.getByText(testMessage)).toBeInTheDocument()
-  //})
+
+  test('can render image', () => {
+    const wrapper = mount(<Subject image={pixelImage} onChange={() => {}} />)
+    expect(wrapper.find('img').get(0).props.src).toBe(pixelImage)
+  })
+
+  test('can render rotation slider', () => {
+    const wrapper = shallow(<Subject image={pixelImage} onChange={() => {}} />)
+    expect(wrapper.find(Slider)).toHaveLength(1)
+  })
 })
